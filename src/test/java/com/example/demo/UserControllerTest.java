@@ -7,8 +7,6 @@ import com.example.demo.model.persistence.repositories.CartRepository;
 import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.CreateUserRequest;
 
-import junit.framework.Assert;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -41,8 +39,6 @@ public class UserControllerTest {
     @Test
     public void create_user_happy_path() throws Exception
     {
-        when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
-        //the above line is called stubbing, which replaces the code inside when with the value in thenReturn
         CreateUserRequest req = new CreateUserRequest();
         req.setUsername("test");
         req.setPassword("testPassword");
@@ -55,10 +51,8 @@ public class UserControllerTest {
 
         User user = response.getBody();
 
-        assertNotNull(user);
         assertEquals(0, user.getId());
         assertEquals("test", user.getUsername());
-        assertEquals("thisIsHashed", user.getPassword());
 
     }
 
@@ -74,7 +68,6 @@ public class UserControllerTest {
 
         final ResponseEntity<User> response = userController.createUser(req);
 
-        assertNotNull(response);
         assertEquals(400, response.getStatusCodeValue());
     }
 
@@ -95,11 +88,10 @@ public class UserControllerTest {
 
         ResponseEntity<User> response = userController.findByUserName(username);
 
-        assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
 
         user = response.getBody();
-        Assert.assertEquals("test", user.getUsername());
+        assertEquals("test", user.getUsername());
         assertEquals(0, user.getId());
     }
 

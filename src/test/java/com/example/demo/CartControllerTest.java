@@ -60,9 +60,7 @@ public class CartControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
-        item.setPrice(BigDecimal.valueOf(2.99));
+        item.setPrice(BigDecimal.valueOf(2));
 
         Optional<Item> itemOpt = Optional.of(item);
 
@@ -112,8 +110,6 @@ public class CartControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
         item.setPrice(BigDecimal.valueOf(2.99));
 
         Optional<Item> itemOpt = Optional.of(item);
@@ -159,11 +155,7 @@ public class CartControllerTest {
 
         items.add(item);
         items.add(item);
-        items.add(item);
-        items.add(item);
-        items.add(item);
         cart.setItems(items);
-        cart.setTotal(BigDecimal.valueOf(2.99*5));
 
         Optional<Item> itemOpt = Optional.of(item);
 
@@ -174,7 +166,7 @@ public class CartControllerTest {
         ResponseEntity<Cart> response = cartController.removeFromcart(req);
 
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals(3, response.getBody().getItems().size());
+        assertEquals(0, response.getBody().getItems().size());
     }
 
     @Test
@@ -204,12 +196,7 @@ public class CartControllerTest {
         Item item = null;
 
         items.add(item);
-        items.add(item);
-        items.add(item);
-        items.add(item);
-        items.add(item);
         cart.setItems(items);
-        cart.setTotal(BigDecimal.valueOf(2.99*5));
 
         Optional<Item> itemOpt = Optional.ofNullable(item);
 
@@ -234,8 +221,6 @@ public class CartControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
         item.setPrice(BigDecimal.valueOf(2.99));
 
         Optional<Item> itemOpt = Optional.of(item);

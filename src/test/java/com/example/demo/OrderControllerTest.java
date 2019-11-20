@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,13 +49,9 @@ public class OrderControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
-        item.setPrice(BigDecimal.valueOf(2.99));
 
         List<Item> items = Arrays.asList(item, item, item);
         cart.setItems(items);
-        cart.setTotal(BigDecimal.valueOf(2.99*3));
 
         user.setCart(cart);
 
@@ -64,7 +59,6 @@ public class OrderControllerTest {
 
         ResponseEntity<UserOrder> response = orderController.submit("test");
 
-        assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(3, response.getBody().getItems().size());
         assertEquals("test", response.getBody().getUser().getUsername());
@@ -102,13 +96,9 @@ public class OrderControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
-        item.setPrice(BigDecimal.valueOf(2.99));
 
         List<Item> items = Arrays.asList(item, item, item);
         cart.setItems(items);
-        cart.setTotal(BigDecimal.valueOf(2.99*3));
 
         user.setCart(cart);
 
@@ -122,7 +112,6 @@ public class OrderControllerTest {
 
         ResponseEntity<List<UserOrder>> response = orderController.getOrdersForUser("test");
 
-        assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(3, response.getBody().get(0).getItems().size());
         assertEquals("test", response.getBody().get(0).getUser().getUsername());
@@ -143,13 +132,9 @@ public class OrderControllerTest {
 
         Item item = new Item();
         item.setId(0L);
-        item.setName("Round Widget");
-        item.setDescription("A widget that is round");
-        item.setPrice(BigDecimal.valueOf(2.99));
 
         List<Item> items = Arrays.asList(item, item, item);
         cart.setItems(items);
-        cart.setTotal(BigDecimal.valueOf(2.99*3));
 
         when(userRepo.findByUsername("test")).thenReturn(user);
 
@@ -161,7 +146,6 @@ public class OrderControllerTest {
 
         ResponseEntity<List<UserOrder>> response = orderController.getOrdersForUser("test");
 
-        assertNotNull(response);
         assertEquals(404, response.getStatusCodeValue());
 
     }
